@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
+@Schema(name = "recipe")
 @Entity
 @Table(name = "recipes")
 @Data
@@ -21,6 +22,10 @@ public class Recipe {
     private String title;
     @Schema(description = "Author of the recipe", example = "John Doe")
     private String author;
+
+    @Schema(description = "Dish type", example = "VEGETARIAN",format = "enum")
+    @Enumerated(EnumType.STRING)
+    private EnumDishType dishType;
 
     @Schema(description = "Number of servings", example = "4")
     private Integer servings;

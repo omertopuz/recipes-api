@@ -5,7 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-@Schema(name = "ingredients")
+@Schema(name = "ingredient")
 @Entity
 @Table(name = "ingredients")
 @Data
