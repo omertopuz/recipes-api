@@ -8,7 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class CustomRecipeRepositoryTest {
@@ -33,6 +34,20 @@ class CustomRecipeRepositoryTest {
         filters.add(servingsEquals);
         List<Recipe> recipes = customRecipeRepository.getQueryResult(filters);
         assertEquals(0, recipes.size());
+
+    }
+
+    @Test
+    void testFullTextSearch() {
+        Filter titleLike = Filter.builder()
+                .field("instructions")
+                .operator(QueryOperator.FULL_TEXT_SEARCH)
+                .value("oven DEGREE tomatoes pepper")
+                .build();
+        List<Filter> filters = new ArrayList<>();
+        filters.add(titleLike);
+        List<Recipe> recipes = customRecipeRepository.getQueryResult(filters);
+        assertTrue( recipes.size()>0);
 
     }
 }

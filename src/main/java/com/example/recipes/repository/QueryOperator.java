@@ -6,5 +6,6 @@ public enum QueryOperator {
     EQUALS,
     LIKE,
     NOT_EQ,
-    IN
+    IN,
+    FULL_TEXT_SEARCH
 }
