@@ -1,53 +1,78 @@
 package com.example.recipes.repository;
 
 import com.example.recipes.model.entity.Recipe;
+import com.example.recipes.model.search.JoinColumnProps;
+import com.example.recipes.model.search.QueryOperator;
+import com.example.recipes.model.search.SearchFilter;
+import com.example.recipes.model.search.SearchQuery;
+import com.example.recipes.util.SpecificationUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class CustomRecipeRepositoryTest {
 
     @Autowired
-    private CustomRecipeRepository customRecipeRepository;
+    private RecipeRepository recipeRepository;
 
     @Test
-    void testDynamicSpecification() {
-        Filter titleLike = Filter.builder()
-                .field("title")
-                .operator(QueryOperator.LIKE)
-                .value("pizza")
-                .build();
-        Filter servingsEquals = Filter.builder()
-                .field("servings")
+    void testSpecificationUtil(){
+        SearchFilter filter1 = SearchFilter.builder()
+                .columnName("servings")
                 .operator(QueryOperator.EQUALS)
-                .value("4")
+                .value(2)
                 .build();
-        List<Filter> filters = new ArrayList<>();
-        filters.add(titleLike);
-        filters.add(servingsEquals);
-        List<Recipe> recipes = customRecipeRepository.getQueryResult(filters);
-        assertEquals(0, recipes.size());
 
+        JoinColumnProps joins = JoinColumnProps.builder()
+                .joinColumnName("ingredients")
+                .searchFilter(SearchFilter.builder()
+                        .value("tomatoes")
+                        .operator(QueryOperator.EQUALS)
+                        .columnName("description")
+                        .build())
+                .build();
+
+        Specification<Recipe> spec = SpecificationUtil.bySearchQuery(SearchQuery.builder()
+                        .joinColumnProps(List.of(joins))
+                .searchFilters(List.of(filter1))
+                .build())
+                ;
+        List<Recipe> recipeList = recipeRepository.findAll(spec);
     }
 
     @Test
-    void testFullTextSearch() {
-        Filter titleLike = Filter.builder()
-                .field("instructions")
+    void testSpecificationUtilInOperator(){
+        SearchFilter filter1 = SearchFilter.builder()
+                .columnName("author")
+                .operator(QueryOperator.IN)
+                .value(Arrays.asList("john","mary","someone"))
+                .build();
+
+        Specification<Recipe> spec = SpecificationUtil.bySearchQuery(SearchQuery.builder()
+                .searchFilters(List.of(filter1))
+                .build())
+                ;
+        List<Recipe> recipeList = recipeRepository.findAll(spec);
+    }
+
+    @Test
+    void testFtsWithSpecificationUtilWithFts(){
+        SearchFilter filter1 = SearchFilter.builder()
+                .columnName("instructions")
                 .operator(QueryOperator.FULL_TEXT_SEARCH)
                 .value("oven DEGREE tomatoes pepper")
                 .build();
-        List<Filter> filters = new ArrayList<>();
-        filters.add(titleLike);
-        List<Recipe> recipes = customRecipeRepository.getQueryResult(filters);
-        assertTrue( recipes.size()>0);
 
+        Specification<Recipe> spec = SpecificationUtil.bySearchQuery(SearchQuery.builder()
+                .searchFilters(List.of(filter1))
+                .build())
+                ;
+        List<Recipe> recipeList = recipeRepository.findAll(spec);
     }
 }

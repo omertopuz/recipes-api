@@ -27,9 +27,9 @@ public class ErrorDetails {
     public enum ExceptionTypeEnum {
         EXCEPTION("Exception"),
 
-        APIEXCEPTION("ApiException"),
+        API_EXCEPTION("ApiException"),
 
-        NOTFOUNDEXCEPTION("NotFoundException");
+        NOT_FOUND_EXCEPTION("NotFoundException");
 
 
         private final String value;

@@ -14,7 +14,7 @@ public class DefaultExceptionHandler {
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorDetails apiException(RecipeApiException ex) {
         return ErrorDetails.builder()
-                .exceptionType(ErrorDetails.ExceptionTypeEnum.APIEXCEPTION)
+                .exceptionType(ErrorDetails.ExceptionTypeEnum.API_EXCEPTION)
                 .message(ex.getMessage())
                 .time(OffsetDateTime.now())
                 .build();

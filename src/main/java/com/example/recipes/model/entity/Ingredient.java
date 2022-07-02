@@ -20,5 +20,4 @@ public class Ingredient {
     private String description;
     @Schema(description = "quantity of ingredient", example = "1 cup")
     private String quantity;
-
 }
