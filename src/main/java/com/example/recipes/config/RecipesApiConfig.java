@@ -1,9 +1,12 @@
 package com.example.recipes.config;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.servers.Server;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,4 +20,12 @@ import org.springframework.stereotype.Component;
         }
         )
 public class RecipesApiConfig {
+
+        @Bean
+        public ObjectMapper getObjectMapper(){
+                ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.configure(
+                        DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+                return objectMapper;
+        }
 }

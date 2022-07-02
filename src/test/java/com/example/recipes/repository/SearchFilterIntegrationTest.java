@@ -6,17 +6,17 @@ import com.example.recipes.model.search.QueryOperator;
 import com.example.recipes.model.search.SearchFilter;
 import com.example.recipes.model.search.SearchQuery;
 import com.example.recipes.util.SpecificationUtil;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.domain.Specification;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @SpringBootTest
-class CustomRecipeRepositoryTest {
+class SearchFilterIntegrationTest {
 
     @Autowired
     private RecipeRepository recipeRepository;
@@ -44,6 +44,7 @@ class CustomRecipeRepositoryTest {
                 .build())
                 ;
         List<Recipe> recipeList = recipeRepository.findAll(spec);
+        Assertions.assertNotNull(recipeList);
     }
 
     @Test
@@ -59,6 +60,7 @@ class CustomRecipeRepositoryTest {
                 .build())
                 ;
         List<Recipe> recipeList = recipeRepository.findAll(spec);
+        Assertions.assertTrue(recipeList != null);
     }
 
     @Test
@@ -74,5 +76,6 @@ class CustomRecipeRepositoryTest {
                 .build())
                 ;
         List<Recipe> recipeList = recipeRepository.findAll(spec);
+        Assertions.assertNotNull(recipeList);
     }
 }
