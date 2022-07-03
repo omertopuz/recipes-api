@@ -19,8 +19,7 @@ public class Recipe {
     private String title;
     private String author;
 
-    @Enumerated(EnumType.STRING)
-    private EnumDishType dishType;
+    private String dishType;
 
     private Integer servings;
 

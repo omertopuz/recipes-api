@@ -5,14 +5,14 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://192.168.56.101:5432/recipe_db
+    url: jdbc:postgresql://192.168.56.101:5432/recipe_db2
     username: postgres
     password: local
     driver-class-name: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
         show_sql: true

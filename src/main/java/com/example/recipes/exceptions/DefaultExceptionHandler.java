@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.OffsetDateTime;
+import java.util.Date;
 
 @RestControllerAdvice
 public class DefaultExceptionHandler {
@@ -16,7 +17,17 @@ public class DefaultExceptionHandler {
         return ErrorDetails.builder()
                 .exceptionType(ErrorDetails.ExceptionTypeEnum.API_EXCEPTION)
                 .message(ex.getMessage())
-                .time(OffsetDateTime.now())
+                .time(new Date())
+                .build();
+    }
+
+    @ExceptionHandler(value = {EntityNotFoundException.class})
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public ErrorDetails notFoundException(RecipeApiException ex) {
+        return ErrorDetails.builder()
+                .exceptionType(ErrorDetails.ExceptionTypeEnum.NOT_FOUND_EXCEPTION)
+                .message(ex.getMessage())
+                .time(new Date())
                 .build();
     }
 
@@ -26,7 +37,7 @@ public class DefaultExceptionHandler {
         return ErrorDetails.builder()
                 .exceptionType(ErrorDetails.ExceptionTypeEnum.EXCEPTION)
                 .message("Unexpected Error occurred: "+ex.getMessage())
-                .time(OffsetDateTime.now())
+                .time(new Date())
                 .build();
     }
 

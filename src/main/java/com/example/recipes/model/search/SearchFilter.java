@@ -1,13 +1,13 @@
 package com.example.recipes.model.search;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class SearchFilter {
     @Schema(description = "entity property name", example = "instructions")
     private String columnName;

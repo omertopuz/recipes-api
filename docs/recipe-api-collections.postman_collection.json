@@ -1,0 +1,245 @@
+{
+	"info": {
+		"_postman_id": "26e0983a-982d-43c9-9df5-7b3729d68001",
+		"name": "recipe-api-collections",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get-recipe",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/recipes/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"recipes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete recipe",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/recipes/27",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"recipes",
+						"27"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update recipe",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Pesto Pizza - update\",\r\n  \"author\": \"John Doe\",\r\n  \"dishType\": \"VEGETARIAN\",\r\n  \"servings\": 4,\r\n  \"instructions\": \"Preheat oven to 450 degrees F (230 degrees C).Spread pesto on pizza crust. Top with tomatoes, bell peppers, olives, red onions, artichoke hearts and feta cheese. Bake for 8 to 10 minutes, or until cheese is melted and browned.\",\r\n  \"ingredients\": [\r\n    {\r\n      \"description\": \"crumbled feta cheese\",\r\n      \"quantity\": \"1 cup\"\r\n    },\r\n    {\r\n      \"description\": \"tomatoes\",\r\n      \"quantity\": \"2 cup\"\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/recipes/1",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"recipes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-recipe",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Pesto Pizza\",\r\n  \"author\": \"John Doe\",\r\n  \"dishType\": \"VEGETARIAN\",\r\n  \"servings\": 4,\r\n  \"instructions\": \"Preheat oven to 450 degrees F (230 degrees C).Spread pesto on pizza crust. Top with tomatoes, bell peppers, olives, red onions, artichoke hearts and feta cheese. Bake for 8 to 10 minutes, or until cheese is melted and browned.\",\r\n  \"ingredients\": [\r\n    {\r\n      \"description\": \"crumbled feta cheese\",\r\n      \"quantity\": \"1 cup\"\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/recipes",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"recipes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search All vegetarian recipes",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"searchFilters\": [\r\n    {\r\n      \"columnName\": \"dishType\",\r\n      \"operator\": \"IN\",\r\n      \"value\": \"VEGETARIAN\"\r\n    }\r\n  ],\r\n  \"pageNumber\": 0,\r\n  \"pageSize\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/recipes/search",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"recipes",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search Recipes that can serve 4 persons and have potatoes as an ingredient",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"searchFilters\": [\r\n    {\r\n      \"columnName\": \"servings\",\r\n      \"operator\": \"EQUALS\",\r\n      \"value\": 4\r\n    }\r\n  ],\r\n  \"pageNumber\": 0,\r\n  \"pageSize\": 10,\r\n  \"joinColumnProps\": [\r\n    {\r\n      \"joinColumnName\": \"ingredients\",\r\n      \"searchFilter\": {\r\n        \"columnName\": \"description\",\r\n        \"operator\": \"EQUALS\",\r\n        \"value\": \"potatoes\"\r\n      }\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/recipes/search",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"recipes",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search Recipes without salmon as an ingredient that has oven in the instructions.",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"searchFilters\": [\r\n    {\r\n      \"columnName\": \"instructions\",\r\n      \"operator\": \"FULL_TEXT_SEARCH\",\r\n      \"value\": \"oven\"\r\n    }\r\n  ],\r\n  \"pageNumber\": 0,\r\n  \"pageSize\": 10,\r\n  \"joinColumnProps\": [\r\n    {\r\n      \"joinColumnName\": \"ingredients\",\r\n      \"searchFilter\": {\r\n        \"columnName\": \"description\",\r\n        \"operator\": \"NOT_EQ\",\r\n        \"value\": \"salmon\"\r\n      }\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/recipes/search",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"recipes",
+						"search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list all recipes",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/recipes?pageSize=10&pageNumber=0",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"recipes"
+					],
+					"query": [
+						{
+							"key": "pageSize",
+							"value": "10"
+						},
+						{
+							"key": "pageNumber",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:9080",
+			"type": "default"
+		}
+	]
+}

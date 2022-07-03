@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.OffsetDateTime;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -18,7 +18,7 @@ public class ErrorDetails {
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Schema(name = "time", description = "error date time")
-    private OffsetDateTime time;
+    private Date time;
 
     @Schema(name = "message", example = "An error occurred", description = "error message")
     private String message;
