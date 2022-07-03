@@ -36,7 +36,7 @@ A recipe mostly consists of ingredients and instructions. Additionally, title, s
 * Summary of set up: Assuming that docker has already been installed in your local machine, 
 just clone the repository into a folder than run the command below 
 
-```` docker compose up -d ````
+```` docker-compose up -d ````
 
 #### Running by IDE
 * First create a PostgreSQL instance with the docker command below <br>
