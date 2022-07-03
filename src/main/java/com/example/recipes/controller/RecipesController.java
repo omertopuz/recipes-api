@@ -124,8 +124,7 @@ public class RecipesController {
     @RequestMapping(
             method = RequestMethod.DELETE,
             value = "/{recipeId}",
-            produces = { "application/json" },
-            consumes = { "application/json" }
+            produces = { "application/json" }
     )
     public ResponseEntity deleteRecipe(
             @Parameter(name = "recipeId", description = "recipe id", required = true) @PathVariable("recipeId") Long recipeId
